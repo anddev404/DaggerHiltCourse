@@ -1,5 +1,5 @@
 package com.plcoding.daggerhiltcourse.domain.repository
 
 interface MyRepository {
-    suspend fun doNetworkCall()
+    suspend fun doNetworkCall(result: (result: String) -> Unit, error: (code: Int) -> Unit)
 }
