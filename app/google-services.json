@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "765780351459",
+    "firebase_url": "https://peaceful-stock-418421-default-rtdb.firebaseio.com",
+    "project_id": "peaceful-stock-418421",
+    "storage_bucket": "peaceful-stock-418421.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:765780351459:android:888772f961c251de2168d6",
+        "android_client_info": {
+          "package_name": "com.plcoding.daggerhiltcourse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpqu2j5ze8IAOPVjSM64yhgcfTK6P_p0c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
