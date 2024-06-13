@@ -16,15 +16,32 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.plcoding.daggerhiltcourse.ui.theme.DaggerHiltCourseTheme
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val database = FirebaseDatabase.getInstance()
+        val myRef = database.getReference("Users")
+
+        myRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                var x = 5
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                var x = 5            }
+
+        })
         setContent {
             DaggerHiltCourseTheme {
                 val viewModel = hiltViewModel<MyViewModel>()
@@ -40,6 +57,8 @@ class MainActivity : ComponentActivity() {
 
             }
         }
+
+
     }
 }
 
