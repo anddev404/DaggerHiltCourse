@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -27,21 +28,41 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+    // private lateinit var auth: FirebaseAuth;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        var auth = FirebaseAuth.getInstance()
         val database = FirebaseDatabase.getInstance()
         val myRef = database.getReference("Users")
-
+        val testLogin = "marcin@wawer.pl"
+        val testPassowr = "qwerty"
+        val myToken = "customToken"
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                Toast.makeText(applicationContext, "lista userów: = ${snapshot.childrenCount}", Toast.LENGTH_LONG).show();
                 var x = 5
             }
 
             override fun onCancelled(error: DatabaseError) {
-                var x = 5            }
+                var x = 5
+            }
 
         })
+
+        auth.signInWithEmailAndPassword(testLogin,testPassowr).addOnCompleteListener(this) { task ->
+            if (task.isSuccessful) {
+                Toast.makeText(this, "succes", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(this, "fail", Toast.LENGTH_LONG).show();
+
+            }
+
+        }
+
+
+
+
         setContent {
             DaggerHiltCourseTheme {
                 val viewModel = hiltViewModel<MyViewModel>()
