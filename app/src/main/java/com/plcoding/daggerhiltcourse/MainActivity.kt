@@ -37,15 +37,23 @@ class MainActivity : ComponentActivity() {
         val myRef = database.getReference("Users")
         val testLogin = "marcin@wawer.pl"
         val testPassowr = "qwerty"
-        val myToken = "customToken"
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+
+
+                val users: MutableList<User> = mutableListOf()
+                for (userSnapshot in snapshot.children) {
+                    val user = userSnapshot.getValue(User::class.java)
+                    if (user != null) {
+                        users.add(user)
+                    }
+                }
                 Toast.makeText(
                     applicationContext,
-                    "lista userów: = ${snapshot.childrenCount}",
+                    "lista userów: = ${users.size}",
                     Toast.LENGTH_LONG
                 ).show();
-                var x = 5
+
             }
 
             override fun onCancelled(error: DatabaseError) {
