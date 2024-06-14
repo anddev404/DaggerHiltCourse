@@ -29,7 +29,10 @@ class MyViewModel @Inject constructor(
     private val _error = MutableStateFlow<Int?>(null)
     val error = _error.asStateFlow()
 
-     val _flow: Flow<Int> = flow {
+    private val _progress = MutableStateFlow<String?>(null)
+    val progress = _progress.asStateFlow()
+
+    val _flow: Flow<Int> = flow {
         emit(11) // Emituje wartość z getInt1()
         emit(22) // Emituje wartość z getInt2()
         emit(33) // Emituje wartość statyczną
@@ -42,10 +45,16 @@ class MyViewModel @Inject constructor(
             repository.get().doNetworkCall({
                 _data.value = "It is data ${Random.nextInt()}"
                 _error.value = null
+                _progress.value = null
+
             }, {
                 _data.value = null
                 _error.value = it
+                _progress.value = null
 
+            }, {
+                _progress.value = it
+                _error.value = null
             })
         }
 

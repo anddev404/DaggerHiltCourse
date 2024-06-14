@@ -20,9 +20,18 @@ class MyRepositoryImpl @Inject constructor(
 
     override suspend fun doNetworkCall(
         result: (result: String) -> Unit,
-        error: (code: Int) -> Unit
+        error: (code: Int) -> Unit, progress: (progress: String) -> Unit
     ) {
-        delay(1500)
+        progress("0%")
+        delay(300)
+        progress("20%")
+        delay(300)
+        progress("40%")
+        delay(300)
+        progress("60%")
+        delay(300)
+        progress("80%")
+        delay(300)
         var random = Random.nextInt()
         if (random % 2 == 0) result("$random") else error(404)
 

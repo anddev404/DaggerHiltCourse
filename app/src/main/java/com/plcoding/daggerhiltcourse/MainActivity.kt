@@ -40,7 +40,11 @@ class MainActivity : ComponentActivity() {
         val myToken = "customToken"
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                Toast.makeText(applicationContext, "lista userów: = ${snapshot.childrenCount}", Toast.LENGTH_LONG).show();
+                Toast.makeText(
+                    applicationContext,
+                    "lista userów: = ${snapshot.childrenCount}",
+                    Toast.LENGTH_LONG
+                ).show();
                 var x = 5
             }
 
@@ -50,15 +54,16 @@ class MainActivity : ComponentActivity() {
 
         })
 
-        auth.signInWithEmailAndPassword(testLogin,testPassowr).addOnCompleteListener(this) { task ->
-            if (task.isSuccessful) {
-                Toast.makeText(this, "succes", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(this, "fail", Toast.LENGTH_LONG).show();
+        auth.signInWithEmailAndPassword(testLogin, testPassowr)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    Toast.makeText(this, "succes", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(this, "fail", Toast.LENGTH_LONG).show();
+
+                }
 
             }
-
-        }
 
 
 
@@ -67,12 +72,13 @@ class MainActivity : ComponentActivity() {
             DaggerHiltCourseTheme {
                 val viewModel = hiltViewModel<MyViewModel>()
                 val data = viewModel.data.collectAsState()
-                val error = viewModel.error.collectAsState(initial = 0)
+                val error = viewModel.error.collectAsState()
+                val progress = viewModel.progress.collectAsState()
 
                 LaunchedEffect(data, error) {
 
                 }
-                AppView(data.value, error.value) {
+                AppView(data.value, error.value, progress.value) {
                     viewModel.fetchData()
                 }
 
@@ -84,7 +90,7 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun AppView(text: String?, error: Int?, onClick: () -> Unit) {
+fun AppView(text: String?, error: Int?, progress: String?, onClick: () -> Unit) {
     Column(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -109,6 +115,10 @@ fun AppView(text: String?, error: Int?, onClick: () -> Unit) {
         } else {
             Log.d("MARCIN_W", "run");
             Text(text = "No Data")
+        }
+        if (progress != null) {
+            Log.d("MARCIN_W", "progress");
+            Text(text = progress)
         }
         Button(onClick = { onClick() }) {
             Text(text = "Click")
