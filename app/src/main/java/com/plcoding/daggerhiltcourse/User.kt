@@ -11,6 +11,6 @@ class User() {
 
     //jesli zmeinna jest np Int zamiast Int? to i tak edytor nie pozwoli dojsc do sytuacji zeby
 // nie przypisać zmiennej bo tym bardziej musze dać domyslną zmienna
-    
+
 }
 

@@ -1,6 +1,7 @@
 package com.plcoding.daggerhiltcourse
 
 import android.util.Log
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.plcoding.daggerhiltcourse.domain.repository.MyRepository
@@ -22,6 +23,12 @@ import kotlin.random.Random
 class MyViewModel @Inject constructor(
     private val repository: Lazy<MyRepository>
 ) : ViewModel() {
+
+    private val _editText = MutableStateFlow<TextFieldValue>(TextFieldValue())
+    val editText = _editText.asStateFlow()
+    fun sendEditText(t: TextFieldValue) {
+        _editText.value = t
+    }
 
     private val _data = MutableStateFlow<String?>(null)
     val data = _data.asStateFlow()
