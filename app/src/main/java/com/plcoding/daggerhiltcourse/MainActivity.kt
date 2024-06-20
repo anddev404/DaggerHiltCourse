@@ -48,7 +48,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 
-//Viewmodel w dwie strony w edittext
+//testowy commit 20.06.2024. 13.12
 
 
 @AndroidEntryPoint
